@@ -1,5 +1,7 @@
 on:
-  push
+  push:
+    branch:
+      - main
 
 jobs:
   build:
@@ -9,10 +11,13 @@ jobs:
     - uses: actions/checkout@v2
     - name: Set up node using nvm
       uses:  dcodeIO/setup-node-nvm@v4
-    - name: Build
+    - name: Install node packages
       run: |
-        yarn --frozen-lockfile
+        nvm use `cat .nvmrc`
+        npm install --global yarn
         yarn build
+    - name: Build
+      run: yarn build
 
   test:
     name: Test
@@ -21,10 +26,13 @@ jobs:
     - uses: actions/checkout@v2
     - name: Set up node using nvm
       uses:  dcodeIO/setup-node-nvm@v4
-    - name: Run tests
+    - name: Install node packages
       run: |
-        yarn --frozen-lockfile
-        yarn test
+        nvm use `cat .nvmrc`
+        npm install --global yarn
+        yarn build
+    - name: Run tests
+      run: yarn test
 
   lint:
     name: Lint
@@ -33,7 +41,10 @@ jobs:
     - uses: actions/checkout@v2
     - name: Set up node using nvm
       uses:  dcodeIO/setup-node-nvm@v4
-    - name: Run tests
+    - name: Install node packages
       run: |
-        yarn --frozen-lockfile
-        yarn lint
+        nvm use `cat .nvmrc`
+        npm install --global yarn
+        yarn build
+    - name: Lint
+      run: yarn lint
