@@ -13,7 +13,11 @@ jobs:
       with:
         node-version: '14.15.1'
     - name: Install node packages
-      run: yarn --frozen-lockfile
+      env:
+        GITHUB_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      run: |
+        cp .npmrc.example .npmrc
+        yarn --frozen-lockfile
     - name: Build
       run: yarn build
 
@@ -26,7 +30,11 @@ jobs:
       with:
         node-version: '14.15.1'
     - name: Install node packages
-      run: yarn --frozen-lockfile
+      env:
+        GITHUB_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      run: |
+        cp .npmrc.example .npmrc
+        yarn --frozen-lockfile
     - name: Run tests
       run: yarn test
 
@@ -39,6 +47,10 @@ jobs:
       with:
         node-version: '14.15.1'
     - name: Install node packages
-      run: yarn --frozen-lockfile
+      env:
+        GITHUB_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      run: |
+        cp .npmrc.example .npmrc
+        yarn --frozen-lockfile
     - name: Lint
       run: yarn lint
