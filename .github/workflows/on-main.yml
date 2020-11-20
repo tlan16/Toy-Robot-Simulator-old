@@ -44,7 +44,7 @@ jobs:
     - uses: actions/upload-artifact@v2
       with:
         name: Test Coverage
-        path: coverage/lcov-report
+        path: coverage
         retention-days: 5
 
   lint:
