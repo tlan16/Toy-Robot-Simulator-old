@@ -105,3 +105,6 @@ dist
 
 # NPM
 /.npmrc
+
+# ESLINT
+/.eslintcache

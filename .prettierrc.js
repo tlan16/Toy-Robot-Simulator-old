@@ -11,5 +11,11 @@ module.exports = {
                 tabWidth: 2,
             },
         },
+        {
+            files: '*.json',
+            options: {
+                tabWidth: 2,
+            },
+        },
     ],
 };
