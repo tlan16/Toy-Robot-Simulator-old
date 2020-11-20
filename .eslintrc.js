@@ -1,5 +1,3 @@
 module.exports = {
-    extends: [
-        '@tlan16/eslint-config-typescript',
-    ],
+    extends: ['@tlan16/eslint-config-typescript'],
 };
