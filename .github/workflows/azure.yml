@@ -1,0 +1,39 @@
+on:
+  push
+
+jobs:
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Set up node using nvm
+      uses:  dcodeIO/setup-node-nvm@v4
+    - name: Build
+      run: |
+        yarn --frozen-lockfile
+        yarn build
+
+  test:
+    name: Test
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Set up node using nvm
+      uses:  dcodeIO/setup-node-nvm@v4
+    - name: Run tests
+      run: |
+        yarn --frozen-lockfile
+        yarn test
+
+  lint:
+    name: Lint
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Set up node using nvm
+      uses:  dcodeIO/setup-node-nvm@v4
+    - name: Run tests
+      run: |
+        yarn --frozen-lockfile
+        yarn lint
