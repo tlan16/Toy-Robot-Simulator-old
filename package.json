@@ -1,0 +1,12 @@
+{
+  "name": "Toy-Robot-Simulator",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "git@github.com:tlan16/Toy-Robot-Simulator.git",
+  "author": "Frank Lan <flan@msts.com>",
+  "license": "MIT",
+  "devDependencies": {
+    "@tlan16/eslint-config-typescript": "^0.0.5",
+    "eslint": "^7.13.0"
+  }
+}
