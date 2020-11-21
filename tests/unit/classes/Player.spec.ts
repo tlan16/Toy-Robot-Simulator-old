@@ -78,17 +78,24 @@ describe('Player', () => {
             const testCase1: [number, number, Facing, number, number][] = [
                 [0, 0, Facing.NORTH, 0, 1],
                 [0, 1, Facing.SOUTH, 0, 0],
-                [0, 0, Facing.EAST, 0, 1],
+                [0, 0, Facing.EAST, 1, 0],
                 [1, 0, Facing.WEST, 0, 0],
             ];
-            test.each(testCase1)('should move when player is at %i,%i and facing %s', (x, y, facing) => {
-                player.placeOnPlayground({
-                    playground,
-                    facing,
-                    position: { x: BigInt(x), y: BigInt(y) },
-                });
-                player.move();
-            });
+            test.each(testCase1)(
+                'should move when player is at %i,%i and facing %s',
+                (initialPositionX, initialPositionY, facing, afterMovePositionX, afterMovePositionY) => {
+                    player.placeOnPlayground({
+                        playground,
+                        facing,
+                        position: { x: BigInt(initialPositionX), y: BigInt(initialPositionY) },
+                    });
+                    player.move();
+                    expect(player.position).toMatchObject({
+                        x: BigInt(afterMovePositionX),
+                        y: BigInt(afterMovePositionY),
+                    });
+                },
+            );
 
             const testCase2: [number, number, Facing][] = [
                 [0, 10, Facing.NORTH],
