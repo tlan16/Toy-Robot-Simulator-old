@@ -103,20 +103,23 @@ describe('Player', () => {
                 [10, 0, Facing.EAST],
                 [0, 0, Facing.WEST],
             ];
-            test.each(testCase2)('should not move when player is at %i,%i and facing %s', (x, y, facing) => {
-                player.placeOnPlayground({
-                    playground,
-                    facing,
-                    position: { x: BigInt(x), y: BigInt(y) },
-                });
-                expect.assertions(1);
+            test.each(testCase2)(
+                'should not move when player is at %i,%i and facing %s',
+                (initialPositionX, initialPositionY, facing) => {
+                    player.placeOnPlayground({
+                        playground,
+                        facing,
+                        position: { x: BigInt(initialPositionX), y: BigInt(initialPositionY) },
+                    });
+                    expect.assertions(1);
 
-                try {
-                    player.move();
-                } catch (e) {
-                    expect(e).toBeInstanceOf(PlayerNotOnPlaygroundError);
-                }
-            });
+                    try {
+                        player.move();
+                    } catch (e) {
+                        expect(e).toBeInstanceOf(PlayerNotOnPlaygroundError);
+                    }
+                },
+            );
         });
     });
 });
