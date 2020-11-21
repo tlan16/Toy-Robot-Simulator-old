@@ -3,6 +3,7 @@ import { OutsizePlaygroundError } from '../errors/OutsizePlaygroundError';
 import { EmptyPlayerNameError } from '../errors/EmptyPlayerNameError';
 import { Facing } from '../types/Facing';
 import { Position } from '../types/Position';
+import { PlayerNotOnPlaygroundError } from '../errors/PlayerNotOnPlaygroundError';
 
 export class Player {
     public name: String;
@@ -38,5 +39,62 @@ export class Player {
         this.playground = playground;
         this.facing = facing;
         this.position = position;
+    }
+
+    public get isOnPlayground(): boolean {
+        return this.playground !== undefined && this.facing !== undefined && this.position !== undefined;
+    }
+
+    public move(): void {
+        if (!this.isOnPlayground) {
+            throw new PlayerNotOnPlaygroundError();
+        }
+        switch (this.facing) {
+            case Facing.EAST:
+                this.moveRight();
+                break;
+            case Facing.WEST:
+                this.moveLeft();
+                break;
+            case Facing.NORTH:
+                this.moveUp();
+                break;
+            case Facing.SOUTH:
+                this.moveDown();
+                break;
+        }
+        this.checkPlayerIsInPlayground();
+    }
+
+    private moveLeft(): void {
+        if (this.position?.x !== undefined) {
+            this.position.x = BigInt(this.position.x.valueOf() - BigInt(1));
+        }
+    }
+
+    private moveRight(): void {
+        if (this.position?.x !== undefined) {
+            this.position.x = BigInt(this.position.x.valueOf() + BigInt(1));
+        }
+    }
+
+    private moveUp(): void {
+        if (this.position?.y !== undefined) {
+            this.position.y = BigInt(this.position.y.valueOf() + BigInt(1));
+        }
+    }
+
+    private moveDown(): void {
+        if (this.position?.y !== undefined) {
+            this.position.y = BigInt(this.position.y.valueOf() - BigInt(1));
+        }
+    }
+
+    private checkPlayerIsInPlayground(): void {
+        if (this.playground && this.position) {
+            if (!this.playground.isPositionInPlayground(this.position)) {
+                throw new PlayerNotOnPlaygroundError();
+            }
+        }
     }
 }

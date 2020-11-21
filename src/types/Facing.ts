@@ -1,6 +1,6 @@
 export enum Facing {
-    NORTH,
-    SOUTH,
-    EAST,
-    WEST,
+    NORTH = 'north',
+    SOUTH = 'south',
+    EAST = 'east',
+    WEST = 'west',
 }

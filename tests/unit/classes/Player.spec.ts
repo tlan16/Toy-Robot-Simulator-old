@@ -3,6 +3,7 @@ import { EmptyPlayerNameError } from '../../../src/errors/EmptyPlayerNameError';
 import { Playground } from '../../../src/classes/Playground';
 import { Facing } from '../../../src/types/Facing';
 import { OutsizePlaygroundError } from '../../../src/errors/OutsizePlaygroundError';
+import { PlayerNotOnPlaygroundError } from '../../../src/errors/PlayerNotOnPlaygroundError';
 
 describe('Player', () => {
     it('should construct', () => {
@@ -54,6 +55,60 @@ describe('Player', () => {
             } catch (e) {
                 expect(e).toBeInstanceOf(OutsizePlaygroundError);
             }
+        });
+    });
+
+    describe('move', () => {
+        const player = new Player('John');
+
+        it('should not move when player is not on a playground', () => {
+            expect.assertions(1);
+            try {
+                player.move();
+            } catch (e) {
+                expect(e).toBeInstanceOf(PlayerNotOnPlaygroundError);
+            }
+        });
+        describe('when player is on playground', () => {
+            const playground = new Playground({
+                size: { x: BigInt(10), y: BigInt(10) },
+            });
+
+            let testCase: [number, number, Facing][] = [
+                [0, 0, Facing.NORTH],
+                [0, 1, Facing.SOUTH],
+                [0, 0, Facing.EAST],
+                [1, 0, Facing.WEST],
+            ];
+            test.each(testCase)('should move when player is at %i,%i and facing %s', (x, y, facing) => {
+                player.placeOnPlayground({
+                    playground,
+                    facing,
+                    position: { x: BigInt(x), y: BigInt(y) },
+                });
+                player.move();
+            });
+
+            testCase = [
+                [0, 10, Facing.NORTH],
+                [0, 0, Facing.SOUTH],
+                [10, 0, Facing.EAST],
+                [0, 0, Facing.WEST],
+            ];
+            test.each(testCase)('should not move when player is at %i,%i and facing %s', (x, y, facing) => {
+                player.placeOnPlayground({
+                    playground,
+                    facing,
+                    position: { x: BigInt(x), y: BigInt(y) },
+                });
+                expect.assertions(1);
+
+                try {
+                    player.move();
+                } catch (e) {
+                    expect(e).toBeInstanceOf(PlayerNotOnPlaygroundError);
+                }
+            });
         });
     });
 });
