@@ -15,7 +15,8 @@
   ],
   "collectCoverageFrom": [
     "src/**/*.ts",
-    "!src/**/*.d.ts"
+    "!src/errors/*.ts",
+    "!src/types/*.ts"
   ],
   "transform": {
     ".(ts|tsx)": "<rootDir>/node_modules/ts-jest/preprocessor.js"
@@ -23,7 +24,6 @@
   "moduleNameMapper": {
     "@/(.*)$": "<rootDir>/src/$1"
   },
-  "collectCoverage": true,
   "coverageDirectory": "<rootDir>/coverage",
   "coverageProvider": "v8",
   "clearMocks": true,
