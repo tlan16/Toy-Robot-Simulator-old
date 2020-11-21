@@ -69,18 +69,19 @@ describe('Player', () => {
                 expect(e).toBeInstanceOf(PlayerNotOnPlaygroundError);
             }
         });
+
         describe('when player is on playground', () => {
             const playground = new Playground({
                 size: { x: BigInt(10), y: BigInt(10) },
             });
 
-            let testCase: [number, number, Facing][] = [
-                [0, 0, Facing.NORTH],
-                [0, 1, Facing.SOUTH],
-                [0, 0, Facing.EAST],
-                [1, 0, Facing.WEST],
+            const testCase1: [number, number, Facing, number, number][] = [
+                [0, 0, Facing.NORTH, 0, 1],
+                [0, 1, Facing.SOUTH, 0, 0],
+                [0, 0, Facing.EAST, 0, 1],
+                [1, 0, Facing.WEST, 0, 0],
             ];
-            test.each(testCase)('should move when player is at %i,%i and facing %s', (x, y, facing) => {
+            test.each(testCase1)('should move when player is at %i,%i and facing %s', (x, y, facing) => {
                 player.placeOnPlayground({
                     playground,
                     facing,
@@ -89,13 +90,13 @@ describe('Player', () => {
                 player.move();
             });
 
-            testCase = [
+            const testCase2: [number, number, Facing][] = [
                 [0, 10, Facing.NORTH],
                 [0, 0, Facing.SOUTH],
                 [10, 0, Facing.EAST],
                 [0, 0, Facing.WEST],
             ];
-            test.each(testCase)('should not move when player is at %i,%i and facing %s', (x, y, facing) => {
+            test.each(testCase2)('should not move when player is at %i,%i and facing %s', (x, y, facing) => {
                 player.placeOnPlayground({
                     playground,
                     facing,
