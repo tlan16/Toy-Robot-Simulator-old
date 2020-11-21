@@ -25,7 +25,6 @@
     "@/(.*)$": "<rootDir>/src/$1"
   },
   "coverageDirectory": "<rootDir>/coverage",
-  "coverageProvider": "v8",
   "clearMocks": true,
   "coverageThreshold": {
     "global": {
