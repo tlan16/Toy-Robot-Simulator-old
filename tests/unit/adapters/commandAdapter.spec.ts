@@ -3,6 +3,7 @@ import { Playground } from '../../../src/classes/Playground';
 import { CommandAdapter } from '../../../src/adapters/CommandAdapter';
 import { Facing } from '../../../src/types/Facing';
 import { PlayerFallsOutOfPlaygroundError } from '../../../src/errors/PlayerFallsOutOfPlaygroundError';
+import { InvalidCommandError } from '../../../src/errors/InvalidCommandError';
 
 describe('CommandAdapter', () => {
     let commandAdapter: CommandAdapter;
@@ -37,6 +38,23 @@ describe('CommandAdapter', () => {
                 });
             };
             commandAdapter.execute(command + ' REPORT');
+        });
+
+        it('should throw error when command is invalid', () => {
+            expect.assertions(1);
+            try {
+                new CommandAdapter({
+                    player: new Player('John'),
+                    playground: new Playground({
+                        size: { x: BigInt(10), y: BigInt(10) },
+                    }),
+                    reporter: () => {
+                        throw new Error('this error is not expected');
+                    },
+                }).execute(`PLACE ${Number.MAX_SAFE_INTEGER + 1},0,NORTH MOVE`);
+            } catch (e) {
+                expect(e).toBeInstanceOf(InvalidCommandError);
+            }
         });
 
         it('should execute REPORT when player is not on a playground', () => {
