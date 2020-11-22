@@ -9,7 +9,8 @@
     "dev": "nodemon",
     "build": "tsc -p tsconfig.build.json",
     "test": "jest --config jest.config.json --coverage",
-    "lint": "eslint 'src/**/*.ts' 'tests/**/*.ts' --cache"
+    "lint": "eslint 'src/**/*.ts' 'tests/**/*.ts' --cache",
+    "start": "yarn build && node dist/main.js"
   },
   "devDependencies": {
     "@tlan16/eslint-config-typescript": "^0.0.5",
