@@ -32,4 +32,4 @@ Player Name:
 
 # Reporting Issue
 
-Open new issue on github or feel free to email at [franklan118@gmail.com](mailto:franklan118@gmail.com).
+Open new issue on github or feel free to email me at [franklan118@gmail.com](mailto:franklan118@gmail.com).
