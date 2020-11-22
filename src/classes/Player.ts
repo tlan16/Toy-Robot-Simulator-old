@@ -4,6 +4,7 @@ import { EmptyPlayerNameError } from '../errors/EmptyPlayerNameError';
 import { Facing } from '../types/Facing';
 import { Position } from '../types/Position';
 import { PlayerNotOnPlaygroundError } from '../errors/PlayerNotOnPlaygroundError';
+import { PlayerFallsOutOfPlaygroundError } from '../errors/PlayerFallsOutOfPlaygroundError';
 
 export class Player {
     public name: String;
@@ -131,7 +132,7 @@ export class Player {
     private checkPlayerIsInPlayground(): void {
         if (this.playground && this.position) {
             if (!this.playground.isPositionInPlayground(this.position)) {
-                throw new PlayerNotOnPlaygroundError();
+                throw new PlayerFallsOutOfPlaygroundError();
             }
         }
     }

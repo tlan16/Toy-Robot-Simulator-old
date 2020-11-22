@@ -3,6 +3,8 @@ export enum AppErrorCode {
     EMPTY_PLAYER_NAME,
     ZERO_PLAYGROUND_AXIS_SIZE,
     PLAYER_NOT_ON_PLAYGROUND,
+    PLAYER_FALLS_OUT_OF_PLAYGROUND,
+    INVALID_COMMAND,
 }
 
 export interface AppError extends Error {

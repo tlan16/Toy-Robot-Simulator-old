@@ -4,6 +4,7 @@ import { Playground } from '../../../src/classes/Playground';
 import { Facing } from '../../../src/types/Facing';
 import { OutsizePlaygroundError } from '../../../src/errors/OutsizePlaygroundError';
 import { PlayerNotOnPlaygroundError } from '../../../src/errors/PlayerNotOnPlaygroundError';
+import { PlayerFallsOutOfPlaygroundError } from '../../../src/errors/PlayerFallsOutOfPlaygroundError';
 
 describe('Player', () => {
     it('should construct', () => {
@@ -116,7 +117,7 @@ describe('Player', () => {
                     try {
                         player.move();
                     } catch (e) {
-                        expect(e).toBeInstanceOf(PlayerNotOnPlaygroundError);
+                        expect(e).toBeInstanceOf(PlayerFallsOutOfPlaygroundError);
                     }
                 },
             );
