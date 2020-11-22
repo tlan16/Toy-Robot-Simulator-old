@@ -5,11 +5,11 @@
 Use this section to tell people about which versions of your project are
 currently being supported with security updates.
 
-| Version | Supported          |
-| ------- | ------------------ |
-| 14.x.x  | :white_check_mark: |
-| < 14    | :x:                |
-| > 14    | :x:                |
+```
+    "node": ">=14.15.1"
+    "npm": ">=6.14.9"
+    "yarn": ">=1.22.10"
+```
 
 ## Reporting a Vulnerability
 
