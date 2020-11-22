@@ -45,6 +45,44 @@ export class Player {
         return this.playground !== undefined && this.facing !== undefined && this.position !== undefined;
     }
 
+    public rotateClockwise(): void {
+        if (this.facing !== undefined) {
+            switch (this.facing) {
+                case Facing.EAST:
+                    this.facing = Facing.SOUTH;
+                    break;
+                case Facing.WEST:
+                    this.facing = Facing.NORTH;
+                    break;
+                case Facing.NORTH:
+                    this.facing = Facing.EAST;
+                    break;
+                case Facing.SOUTH:
+                    this.facing = Facing.WEST;
+                    break;
+            }
+        }
+    }
+
+    public rotateCounterclockwise(): void {
+        if (this.facing !== undefined) {
+            switch (this.facing) {
+                case Facing.EAST:
+                    this.facing = Facing.NORTH;
+                    break;
+                case Facing.WEST:
+                    this.facing = Facing.SOUTH;
+                    break;
+                case Facing.NORTH:
+                    this.facing = Facing.WEST;
+                    break;
+                case Facing.SOUTH:
+                    this.facing = Facing.EAST;
+                    break;
+            }
+        }
+    }
+
     public move(): void {
         if (!this.isOnPlayground) {
             throw new PlayerNotOnPlaygroundError();

@@ -122,4 +122,53 @@ describe('Player', () => {
             );
         });
     });
+
+    describe('rorate', () => {
+        const player = new Player('John Superstar');
+        const playground = new Playground({
+            size: { x: BigInt(10), y: BigInt(10) },
+        });
+
+        describe('rotateClockwise', () => {
+            const testCases: [Facing, Facing][] = [
+                [Facing.NORTH, Facing.EAST],
+                [Facing.EAST, Facing.SOUTH],
+                [Facing.SOUTH, Facing.WEST],
+                [Facing.WEST, Facing.NORTH],
+            ];
+            it.each(testCases)(
+                'should facing %s after rotation when currently facing %s',
+                (currentFacing: Facing, expectedFacing: Facing) => {
+                    player.placeOnPlayground({
+                        playground,
+                        facing: currentFacing,
+                    });
+                    player.rotateClockwise();
+
+                    expect(player.facing).toBe(expectedFacing);
+                },
+            );
+        });
+
+        describe('rotateCounterclockwise', () => {
+            const testCases: [Facing, Facing][] = [
+                [Facing.NORTH, Facing.WEST],
+                [Facing.WEST, Facing.SOUTH],
+                [Facing.SOUTH, Facing.EAST],
+                [Facing.EAST, Facing.NORTH],
+            ];
+            it.each(testCases)(
+                'should facing %s after rotation when currently facing %s',
+                (currentFacing: Facing, expectedFacing: Facing) => {
+                    player.placeOnPlayground({
+                        playground,
+                        facing: currentFacing,
+                    });
+                    player.rotateCounterclockwise();
+
+                    expect(player.facing).toBe(expectedFacing);
+                },
+            );
+        });
+    });
 });
