@@ -27,6 +27,7 @@ jobs:
         GITHUB_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       run: |
         cp .npmrc.example .npmrc
+        npm i -g npm yarn
         yarn --frozen-lockfile
     - name: Build
       env:
@@ -56,6 +57,7 @@ jobs:
         GITHUB_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       run: |
         cp .npmrc.example .npmrc
+        npm i -g npm yarn
         yarn --frozen-lockfile
     - name: Run tests
       env:
@@ -90,6 +92,7 @@ jobs:
         GITHUB_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       run: |
         cp .npmrc.example .npmrc
+        npm i -g npm yarn
         yarn --frozen-lockfile
     - name: Lint
       env:
