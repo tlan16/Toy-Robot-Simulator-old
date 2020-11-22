@@ -2,7 +2,7 @@
 
 See [Wiki](https://github.com/tlan16/Toy-Robot-Simulator/wiki) for the requirement details.
 
-# To run
+## To run
 
 Copy `.npmrc.example` to `.npmrc` and replace `${GITHUB_AUTH_TOKEN}` with your github access token which has read access to github packages.
 
@@ -20,7 +20,7 @@ $ check-node-version --package
 Player Name:
 ```
 
-# Local development
+## Local development
 
 `yarn dev` to start command line interface with nodemon.
 
@@ -30,6 +30,6 @@ Player Name:
 
 `yarn test` for testing.
 
-# Reporting Issue
+## Reporting Issue
 
 Open new issue on github or feel free to email me at [franklan118@gmail.com](mailto:franklan118@gmail.com).
