@@ -16,7 +16,9 @@
   "collectCoverageFrom": [
     "src/**/*.ts",
     "!src/errors/*.ts",
-    "!src/types/*.ts"
+    "!src/types/*.ts",
+    "!src/main.ts",
+    "!src/adapters/CommandLineInterfaceAdapter.ts"
   ],
   "transform": {
     ".(ts|tsx)": "ts-jest"

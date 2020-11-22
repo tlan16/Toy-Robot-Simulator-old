@@ -57,13 +57,9 @@ describe('CommandAdapter', () => {
             }
         });
 
-        it('should execute REPORT when player is not on a playground', () => {
-            expect.assertions(4);
-            commandAdapter.reporter = (player: Readonly<Player>) => {
-                expect(player.isOnPlayground).toBe(false);
-                expect(player.playground).toBeUndefined();
-                expect(player.facing).toBeUndefined();
-                expect(player.position).toBeUndefined();
+        it('should not execute REPORT when player is not on a playground', () => {
+            commandAdapter.reporter = () => {
+                throw new Error('this error should not be thrown');
             };
             commandAdapter.execute('REPORT');
         });

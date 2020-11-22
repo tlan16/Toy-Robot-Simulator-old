@@ -47,7 +47,7 @@ export class CommandAdapter {
         );
     }
 
-    public static parseInput(input: string): ReadonlyArray<[Command, Readonly<PlaceCommandArguments | []>]> {
+    public parseInput(input: string): ReadonlyArray<[Command, Readonly<PlaceCommandArguments | []>]> {
         const commands: Array<[Command, Readonly<PlaceCommandArguments | []>]> = [];
         let from = 0;
         /**
@@ -55,7 +55,7 @@ export class CommandAdapter {
          */
         for (let to = 1; to <= input.length; to++) {
             const inputSegment = input.substring(from, to).trim();
-            if (!this.isPotentialValidCommand(inputSegment)) {
+            if (!CommandAdapter.isPotentialValidCommand(inputSegment)) {
                 continue;
             }
             for (const [command, regex] of CommandAdapter.commandRegexMap) {
@@ -89,7 +89,7 @@ export class CommandAdapter {
     }
 
     public execute(input: string): void {
-        const commands = CommandAdapter.parseInput(input.trim());
+        const commands = this.parseInput(input.trim());
         for (const [command, args] of commands) {
             switch (command) {
                 case Command.PLACE:
@@ -100,16 +100,24 @@ export class CommandAdapter {
                     });
                     break;
                 case Command.LEFT:
-                    this.player.rotateCounterclockwise();
+                    if (this.player.isOnPlayground) {
+                        this.player.rotateCounterclockwise();
+                    }
                     break;
                 case Command.RIGHT:
-                    this.player.rotateClockwise();
+                    if (this.player.isOnPlayground) {
+                        this.player.rotateClockwise();
+                    }
                     break;
                 case Command.MOVE:
-                    this.player.move();
+                    if (this.player.isOnPlayground) {
+                        this.player.move();
+                    }
                     break;
                 case Command.REPORT:
-                    this.reporterFunction(this.player);
+                    if (this.player.isOnPlayground) {
+                        this.reporterFunction(this.player);
+                    }
                     break;
             }
         }

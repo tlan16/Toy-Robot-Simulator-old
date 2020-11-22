@@ -1,5 +1,3 @@
-interface Foo {
-    foo: string;
-}
+import { CommandLineInterfaceAdapter } from './adapters/CommandLineInterfaceAdapter';
 
-export const foo: Foo = { foo: 'bar' };
+new CommandLineInterfaceAdapter().run();
