@@ -19,7 +19,7 @@
     "!src/types/*.ts"
   ],
   "transform": {
-    ".(ts|tsx)": "<rootDir>/node_modules/ts-jest/preprocessor.js"
+    ".(ts|tsx)": "ts-jest"
   },
   "moduleNameMapper": {
     "@/(.*)$": "<rootDir>/src/$1"
