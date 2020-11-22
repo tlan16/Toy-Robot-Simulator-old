@@ -1,6 +1,6 @@
 # Toy-Robot-Simulator
 
-See [Wiki](https://github.com/tlan16/Toy-Robot-Simulator/wiki) for a requirement details.
+See [Wiki](https://github.com/tlan16/Toy-Robot-Simulator/wiki) for the requirement details.
 
 # To run
 
