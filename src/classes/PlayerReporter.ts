@@ -1,11 +1,12 @@
 import { Player } from './Player';
+import { PlayerNotOnPlaygroundError } from '../errors/PlayerNotOnPlaygroundError';
 
 export class PlayerReporter {
     public static asString(player: Readonly<Player>): string {
         if (!player.isOnPlayground) {
-            return `Player "${player.name}" is currently not on a playground.`;
+            throw new PlayerNotOnPlaygroundError();
         }
-        return `Player "${player.name}" is at ${player.position!.x},${player.position!.y} facing ${player.facing}.`;
+        return `${player.position!.x},${player.position!.y},${player.facing!.toUpperCase()}`;
     }
 
     public static asStandardOut(player: Readonly<Player>): void {

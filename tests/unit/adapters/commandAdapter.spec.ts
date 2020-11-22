@@ -21,6 +21,10 @@ describe('CommandAdapter', () => {
             ['PLACE 0,0,WEST', Facing.WEST, 0, 0],
             ['PLACE 1,2,WEST MOVE', Facing.WEST, 0, 2],
             ['PLACE 1,2,WEST MOVE', Facing.WEST, 0, 2],
+            ['PLACE 1,2,WEST RIGHT MOVE', Facing.NORTH, 1, 3],
+            ['PLACE 1,2,WEST LEFT MOVE', Facing.SOUTH, 1, 1],
+            ['PLACE 0,0,NORTH MOVE', Facing.NORTH, 0, 1],
+            ['PLACE 0,0,NORTH LEFT', Facing.WEST, 0, 0],
         ];
 
         it.each(testCases)('should execute command %s', (command, facing, x, y) => {

@@ -1,6 +1,7 @@
 import { Player } from '../../../src/classes/Player';
 import { Playground } from '../../../src/classes/Playground';
 import { PlayerReporter } from '../../../src/classes/PlayerReporter';
+import { PlayerNotOnPlaygroundError } from '../../../src/errors/PlayerNotOnPlaygroundError';
 
 describe('PlayerReporter', () => {
     describe('when player is on a playground', () => {
@@ -14,14 +15,14 @@ describe('PlayerReporter', () => {
 
         it('asString', () => {
             const report = PlayerReporter.asString(player);
-            expect(report).toBe('Player "John Superstar" is at 0,0 facing north.');
+            expect(report).toBe('0,0,NORTH');
         });
 
         it('asStandardOut', () => {
             const mock = jest.spyOn(console, 'info');
             PlayerReporter.asStandardOut(player);
             expect(mock).toBeCalledTimes(1);
-            expect(mock).toBeCalledWith('Player "John Superstar" is at 0,0 facing north.');
+            expect(mock).toBeCalledWith('0,0,NORTH');
             mock.mockRestore();
         });
     });
@@ -29,16 +30,21 @@ describe('PlayerReporter', () => {
     describe('when player is not on a playground', () => {
         const player = new Player('John Superstar');
         it('asString', () => {
-            const report = PlayerReporter.asString(player);
-            expect(report).toBe('Player "John Superstar" is currently not on a playground.');
+            expect.assertions(1);
+            try {
+                PlayerReporter.asString(player);
+            } catch (e) {
+                expect(e).toBeInstanceOf(PlayerNotOnPlaygroundError);
+            }
         });
 
         it('asStandardOut', () => {
-            const mock = jest.spyOn(console, 'info');
-            PlayerReporter.asStandardOut(player);
-            expect(mock).toBeCalledTimes(1);
-            expect(mock).toBeCalledWith('Player "John Superstar" is currently not on a playground.');
-            mock.mockRestore();
+            expect.assertions(1);
+            try {
+                PlayerReporter.asStandardOut(player);
+            } catch (e) {
+                expect(e).toBeInstanceOf(PlayerNotOnPlaygroundError);
+            }
         });
     });
 });

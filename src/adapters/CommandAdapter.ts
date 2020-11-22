@@ -15,14 +15,6 @@ enum Command {
 
 type PlaceCommandArguments = [number, number, Facing];
 
-const commandRegexMap: Map<Command, RegExp> = new Map([
-    [Command.PLACE, /^PLACE (\d+),(\d+),(NORTH|SOUTH|EAST|WEST)$/g],
-    [Command.LEFT, /^LEFT$/],
-    [Command.RIGHT, /^RIGHT$/],
-    [Command.MOVE, /^MOVE$/],
-    [Command.REPORT, /^REPORT$/],
-]);
-
 export class CommandAdapter {
     private readonly player: Player;
     private readonly playground: Playground;
@@ -36,6 +28,25 @@ export class CommandAdapter {
         }
     }
 
+    private static get commandRegexMap(): Map<Command, RegExp> {
+        return new Map([
+            [Command.PLACE, /^PLACE (\d+),(\d+),(NORTH|SOUTH|EAST|WEST)$/g],
+            [Command.LEFT, /^LEFT$/],
+            [Command.RIGHT, /^RIGHT$/],
+            [Command.MOVE, /^MOVE$/],
+            [Command.REPORT, /^REPORT$/],
+        ]);
+    }
+
+    private static isPotentialValidCommand(input: string): boolean {
+        return (
+            input.length === 4 || // LEFT, MOVE
+            input.length === 'RIGHT'.length ||
+            input.length === 'REPORT'.length ||
+            input.length >= 'PLACE 0,0,EAST'.length
+        );
+    }
+
     public static parseInput(input: string): ReadonlyArray<[Command, Readonly<PlaceCommandArguments | []>]> {
         const commands: Array<[Command, Readonly<PlaceCommandArguments | []>]> = [];
         let from = 0;
@@ -44,10 +55,10 @@ export class CommandAdapter {
          */
         for (let to = 1; to <= input.length; to++) {
             const inputSegment = input.substring(from, to).trim();
-            if (inputSegment.length === 0) {
+            if (!this.isPotentialValidCommand(inputSegment)) {
                 continue;
             }
-            for (const [command, regex] of commandRegexMap) {
+            for (const [command, regex] of CommandAdapter.commandRegexMap) {
                 const matches = regex.exec(inputSegment);
                 if (matches) {
                     if (command === Command.PLACE) {
