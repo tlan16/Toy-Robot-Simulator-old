@@ -1,0 +1,19 @@
+# node packages
+node_modules
+.yarn/*
+!.yarn/cache
+!.yarn/plugins
+!.yarn/releases
+
+# Jetbrain - everything
+.idea
+
+# Build
+dist
+
+# docker
+docker/Dockerfile
+docker/docker-compose.yml
+
+# Coverage
+coverages
