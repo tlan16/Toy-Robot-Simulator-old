@@ -5,7 +5,8 @@
     "rootDir": "./src",
     "allowJs": false,
     "noUnusedLocals": true,
-    "noUnusedParameters": true
+    "noUnusedParameters": true,
+    "target": "ES2021"
   },
   "include": ["./src/**/*"],
   "exclude": ["node_modules", "src/**/*.spec.ts"],
