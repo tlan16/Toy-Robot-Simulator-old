@@ -87,6 +87,25 @@ describe('Robot', () => {
             })
         })
     })
+
+    describe('rotate', () => {
+        it('it should rotate clockwise', () => {
+            const robot = seedRobotOnTabletop({ position: { x: 0, y: 0 }, facing: 'EAST' })
+            const facings: ReadonlyArray<Facing> = ['SOUTH', 'WEST', 'NORTH', 'EAST']
+            for (const facing of facings) {
+                robot.rotate('CLOCKWISE')
+                assert.strictEqual(robot.facing, facing)
+            }
+        })
+        it('it should rotate counterclockwise', () => {
+            const robot = seedRobotOnTabletop({ position: { x: 0, y: 0 }, facing: 'SOUTH' })
+            const facings: ReadonlyArray<Facing> = ['EAST', 'NORTH', 'WEST', 'SOUTH']
+            for (const facing of facings) {
+                robot.rotate('COUNTERCLOCKWISE')
+                assert.strictEqual(robot.facing, facing)
+            }
+        })
+    })
 })
 
 function seedRobotOnTabletop(options?: {
