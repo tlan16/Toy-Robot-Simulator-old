@@ -1,4 +1,4 @@
-import { Tabletop } from './Tabletop'
+import { Tabletop } from './tabletop'
 
 export interface Position {
     x: number

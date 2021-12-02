@@ -1,5 +1,5 @@
 import * as assert from 'assert'
-import { Tabletop } from './Tabletop'
+import { Tabletop } from './tabletop'
 
 describe('Tabletop', () => {
     it('should construct with positive width and height', () => {

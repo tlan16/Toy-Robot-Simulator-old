@@ -1,6 +1,6 @@
-import { Facing, Position, Robot } from './Robot'
 import * as assert from 'assert'
-import { Tabletop } from './Tabletop'
+import { Facing, Position, Robot } from './robot'
+import { Tabletop } from './tabletop'
 
 describe('Robot', () => {
     describe('constructor', () => {
