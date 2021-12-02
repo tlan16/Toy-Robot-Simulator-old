@@ -22,7 +22,7 @@ export class Robot {
         return this.tabletop ? this.#facing : undefined
     }
 
-    placeOnTabletaop(
+    public placeOnTabletaop(
         tableTop: Readonly<Tabletop>,
         options?: {
             initialPosition?: Readonly<Position>
@@ -34,89 +34,109 @@ export class Robot {
         if (options?.initialFacing) this.#facing = options.initialFacing
     }
 
-    move(direction: Direction): void {
+    public move(direction: Direction): void {
         if (!this.tabletop) return
         switch (direction) {
             case 'UP':
-                if (this.#position.y < this.tabletop.width - 1) ++this.#position.y
-                this.#facing = 'NORTH'
-                break
+                return this.#moveUp()
             case 'DOWN':
-                if (this.#position.y > 0) --this.#position.y
+                return this.#moveDown()
+            case 'LEFT':
+                return this.#moveLeft()
+            case 'RIGHT':
+                return this.#moveRight()
+            case 'FORWARD':
+                return this.#moveForward()
+            case 'BACKWARD':
+                return this.#moveBackward()
+        }
+    }
+
+    public rotate(rotation: Rotation): void {
+        switch (rotation) {
+            case 'CLOCKWISE':
+                return this.#rotateClockwise()
+            case 'COUNTERCLOCKWISE':
+                return this.#rotateCounterclockwise()
+        }
+    }
+
+    #moveUp(persistFacing = false): void {
+        if (this.#position.y < this.tabletop.width - 1) ++this.#position.y
+        if (!persistFacing && this.#facing !== 'NORTH') this.#facing = 'NORTH'
+    }
+
+    #moveDown(persistFacing = false): void {
+        if (this.#position.y > 0) --this.#position.y
+        if (!persistFacing && this.#facing !== 'SOUTH') this.#facing = 'SOUTH'
+    }
+
+    #moveLeft(persistFacing = false): void {
+        if (this.#position.x > 0) --this.#position.x
+        if (!persistFacing && this.#facing !== 'WEST') this.#facing = 'WEST'
+    }
+
+    #moveRight(persistFacing = false): void {
+        if (this.#position.x < this.tabletop.height - 1) ++this.#position.x
+        if (!persistFacing && this.#facing !== 'EAST') this.#facing = 'EAST'
+    }
+
+    #moveForward(): void {
+        switch (this.#facing) {
+            case 'EAST':
+                return this.#moveRight()
+            case 'SOUTH':
+                return this.#moveDown()
+            case 'WEST':
+                return this.#moveLeft()
+            case 'NORTH':
+                return this.#moveUp()
+        }
+    }
+
+    #moveBackward(): void {
+        switch (this.#facing) {
+            case 'EAST':
+                return this.#moveLeft(true)
+            case 'SOUTH':
+                return this.#moveUp(true)
+            case 'WEST':
+                return this.#moveRight(true)
+            case 'NORTH':
+                return this.#moveDown(true)
+        }
+    }
+
+    #rotateClockwise(): void {
+        switch (this.#facing) {
+            case 'EAST':
                 this.#facing = 'SOUTH'
                 break
-            case 'LEFT':
-                if (this.#position.x > 0) --this.#position.x
+            case 'SOUTH':
                 this.#facing = 'WEST'
                 break
-            case 'RIGHT':
-                if (this.#position.x < this.tabletop.height - 1) ++this.#position.x
+            case 'WEST':
+                this.#facing = 'NORTH'
+                break
+            case 'NORTH':
                 this.#facing = 'EAST'
-                break
-            case 'FORWARD':
-                switch (this.#facing) {
-                    case 'EAST':
-                        return this.move('RIGHT')
-                    case 'SOUTH':
-                        return this.move('DOWN')
-                    case 'WEST':
-                        return this.move('LEFT')
-                    case 'NORTH':
-                        return this.move('UP')
-                }
-                break
-            case 'BACKWARD':
-                switch (this.#facing) {
-                    case 'EAST':
-                        if (this.#position.x > 0) --this.#position.x
-                        break
-                    case 'SOUTH':
-                        if (this.#position.y < this.tabletop.width - 1) ++this.#position.y
-                        break
-                    case 'WEST':
-                        if (this.#position.x < this.tabletop.height - 1) ++this.#position.x
-                        break
-                    case 'NORTH':
-                        if (this.#position.y > 0) --this.#position.y
-                        break
-                }
                 break
         }
     }
 
-    rotate(rotation: Rotation): void {
-        switch (rotation) {
-            case 'CLOCKWISE':
-                switch (this.#facing) {
-                    case 'EAST':
-                        this.#facing = 'SOUTH'
-                        break
-                    case 'SOUTH':
-                        this.#facing = 'WEST'
-                        break
-                    case 'WEST':
-                        this.#facing = 'NORTH'
-                        break
-                    case 'NORTH':
-                        this.#facing = 'EAST'
-                        break
-                }
+    #rotateCounterclockwise(): void {
+        switch (this.#facing) {
+            case 'EAST':
+                this.#facing = 'NORTH'
                 break
-            case 'COUNTERCLOCKWISE':
-                switch (this.#facing) {
-                    case 'EAST':
-                        this.#facing = 'NORTH'
-                        break
-                    case 'SOUTH':
-                        this.#facing = 'EAST'
-                        break
-                    case 'WEST':
-                        this.#facing = 'SOUTH'
-                        break
-                    case 'NORTH':
-                        this.#facing = 'WEST'
-                        break
-                }
+            case 'SOUTH':
+                this.#facing = 'EAST'
+                break
+            case 'WEST':
+                this.#facing = 'SOUTH'
+                break
+            case 'NORTH':
+                this.#facing = 'WEST'
                 break
         }
     }
