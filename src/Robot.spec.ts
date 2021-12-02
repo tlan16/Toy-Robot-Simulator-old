@@ -156,7 +156,7 @@ function seedRobotOnTabletop(options?: {
             options?.position?.x ? (options.position.x + 1) * 2 : undefined,
             options?.position?.y ? (options.position.y + 1) * 2 : undefined,
         )
-    robot.placeOnTabletaop(tabletop, {
+    robot.placeOnTabletop(tabletop, {
         initialPosition: options?.position,
         initialFacing: options?.facing,
     })

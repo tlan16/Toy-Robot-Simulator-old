@@ -22,7 +22,7 @@ export class Robot {
         return this.tabletop ? this.#facing : undefined
     }
 
-    public placeOnTabletaop(
+    public placeOnTabletop(
         tableTop: Readonly<Tabletop>,
         options?: {
             initialPosition?: Readonly<Position>
