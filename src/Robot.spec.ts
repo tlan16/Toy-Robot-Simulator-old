@@ -86,6 +86,42 @@ describe('Robot', () => {
                 assert.strictEqual(robot.facing, 'EAST')
             })
         })
+        describe('forward', () => {
+            it('should move forward', () => {
+                const robot = seedRobotOnTabletop({ position: { x: 1, y: 1 }, facing: 'SOUTH' })
+                robot.move('FORWARD')
+                assert.deepStrictEqual(robot.position, { x: 1, y: 0 })
+                assert.strictEqual(robot.facing, 'SOUTH')
+            })
+            it('should not move forward', () => {
+                const robot = seedRobotOnTabletop({
+                    tabletop: new Tabletop(3, 3),
+                    position: { x: 3, y: 3 },
+                    facing: 'NORTH',
+                })
+                robot.move('FORWARD')
+                assert.deepStrictEqual(robot.position, { x: 3, y: 3 })
+                assert.strictEqual(robot.facing, 'NORTH')
+            })
+        })
+        describe('backward', () => {
+            it('should move backward', () => {
+                const robot = seedRobotOnTabletop({ position: { x: 1, y: 1 }, facing: 'WEST' })
+                robot.move('BACKWARD')
+                assert.deepStrictEqual(robot.position, { x: 2, y: 1 })
+                assert.strictEqual(robot.facing, 'WEST')
+            })
+            it('should not move backward', () => {
+                const robot = seedRobotOnTabletop({
+                    tabletop: new Tabletop(3, 3),
+                    position: { x: 3, y: 3 },
+                    facing: 'SOUTH',
+                })
+                robot.move('BACKWARD')
+                assert.deepStrictEqual(robot.position, { x: 3, y: 3 })
+                assert.strictEqual(robot.facing, 'SOUTH')
+            })
+        })
     })
 
     describe('rotate', () => {
@@ -117,8 +153,8 @@ function seedRobotOnTabletop(options?: {
     const tabletop =
         options?.tabletop ??
         new Tabletop(
-            options?.position?.x ? options.position.x * 2 : undefined,
-            options?.position?.y ? options.position.y * 2 : undefined,
+            options?.position?.x ? (options.position.x + 1) * 2 : undefined,
+            options?.position?.y ? (options.position.y + 1) * 2 : undefined,
         )
     robot.placeOnTabletaop(tabletop, {
         initialPosition: options?.position,

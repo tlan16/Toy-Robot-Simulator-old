@@ -5,7 +5,7 @@ export interface Position {
     y: number
 }
 
-export type Direction = 'UP' | 'DOWN' | 'LEFT' | 'RIGHT'
+export type Direction = 'UP' | 'DOWN' | 'LEFT' | 'RIGHT' | 'FORWARD' | 'BACKWARD'
 export type Facing = 'NORTH' | 'SOUTH' | 'WEST' | 'EAST'
 export type Rotation = 'CLOCKWISE' | 'COUNTERCLOCKWISE'
 
@@ -52,6 +52,34 @@ export class Robot {
             case 'RIGHT':
                 if (this.#position.x < this.tabletop.height - 1) ++this.#position.x
                 this.#facing = 'EAST'
+                break
+            case 'FORWARD':
+                switch (this.#facing) {
+                    case 'EAST':
+                        return this.move('RIGHT')
+                    case 'SOUTH':
+                        return this.move('DOWN')
+                    case 'WEST':
+                        return this.move('LEFT')
+                    case 'NORTH':
+                        return this.move('UP')
+                }
+                break
+            case 'BACKWARD':
+                switch (this.#facing) {
+                    case 'EAST':
+                        if (this.#position.x > 0) --this.#position.x
+                        break
+                    case 'SOUTH':
+                        if (this.#position.y < this.tabletop.width - 1) ++this.#position.y
+                        break
+                    case 'WEST':
+                        if (this.#position.x < this.tabletop.height - 1) ++this.#position.x
+                        break
+                    case 'NORTH':
+                        if (this.#position.y > 0) --this.#position.y
+                        break
+                }
                 break
         }
     }
