@@ -25,3 +25,6 @@ coverages
 
 # Logs
 *.log
+
+# Caches
+.eslintcache
